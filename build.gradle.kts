@@ -1,3 +1,8 @@
+import org.gradle.internal.impldep.com.google.common.io.Files
+import java.io.FileOutputStream
+import java.nio.file.StandardCopyOption
+import java.util.zip.ZipFile
+
 plugins {
     java
     war
@@ -20,4 +25,31 @@ teavm.js {
     mainClass = "io.github.betterclient.groupadle.Main"
 
     targetFileName = "groupadle.js"
+    obfuscated = false
+
+    properties.put("java.util.TimeZone.autodetect", "true")
+}
+
+var extract = task("extract") {
+    doLast {
+        val jf = ZipFile(file("build/libs/GroupadleOS-1.0-SNAPSHOT.war"))
+        val entries = jf.stream().toList()
+        for (entry in entries) {
+            if (entry.name == "js/groupadle.js") {
+                val iss = jf.getInputStream(entry)
+                val data = iss.readAllBytes()
+                iss.close()
+                val f = file("out/groupadle.js")
+                f.delete()
+                val os = FileOutputStream(f)
+                os.write(data)
+                os.close()
+            }
+        }
+        jf.close()
+    }
+}
+
+tasks.named("build") {
+    finalizedBy(extract)
 }
