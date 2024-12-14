@@ -110,4 +110,8 @@ public class Renderable {
 
         return this;
     }
+
+    public TextMetrics getMetrics(String str) {
+        return this.vr.getMetrics(str);
+    }
 }

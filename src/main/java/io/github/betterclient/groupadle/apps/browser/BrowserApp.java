@@ -38,6 +38,9 @@ public class BrowserApp extends Application {
                 "Surprise link", getWidth() - 130, 12, getWidth() - 10, 18
         ), Color.RED);
 
+        String str = "Disabled iframe";
+        this.renderer.renderText(str, getWidth() / 2D - this.renderer.getMetrics(str).getWidth(), getHeight() / 2D, Color.WHITE);
+
         HTMLBasedAppHelper.move(myFrame, new int[] {
                 (int) this.renderer.x,
                 (int) (this.renderer.y + 20),

@@ -31,8 +31,15 @@ public class ImageViewer extends Application {
         String a = inputElement.getValue();
         if (a.trim().isEmpty()) a = "settings.png";
 
-        this.renderer.renderImage(0, 40, getWidth(), getHeight() - 50, new Image(a).get());
+        try {
+            this.renderer.renderImage(0, 40, getWidth(), getHeight() - 50, new Image(a).get());
+        } catch (Exception e) {
+            //Invalid image, we don't care.
+            return;
+        }
 
+        String str = "Disabled input, not focused";
+        this.renderer.renderText(str, getWidth() / 2D - this.renderer.getMetrics(str).getWidth(), 20, Color.WHITE);
         HTMLBasedAppHelper.move(inputElement, new int[] {
                 (int) this.renderer.x,
                 (int) this.renderer.y,
