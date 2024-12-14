@@ -43,6 +43,9 @@ public abstract class Application {
     protected void setSize(int width, int height) {
         this.width = width;
         this.height = height;
+
+        this.renderer.width = width;
+        this.renderer.height = height;
     }
 
     public final int getWidth() {

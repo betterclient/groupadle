@@ -9,7 +9,7 @@ public class Renderable {
     public static final Runnable EMPTY_RUNNABLE = () -> {};
 
     public double x, y;
-    private double width = 0, height = 0;
+    double width, height;
 
     public Runnable render = EMPTY_RUNNABLE;
     private UIRenderer vr;
@@ -21,14 +21,6 @@ public class Renderable {
 
         this.width = Math.max(width, 0);
         this.height = Math.max(height, 0);
-    }
-
-    public void setHeight(double height) {
-        this.height = Math.max(height, 0);
-    }
-
-    public void setWidth(double width) {
-        this.width = Math.max(width, 0);
     }
 
     public double getWidth() {
@@ -51,35 +43,26 @@ public class Renderable {
         return y;
     }
 
-    public Renderable renderText(String text, double x, double y, Color color) {
+    public void renderText(String text, double x, double y, Color color) {
         Runnable oldRender = render;
         render = () -> {
             oldRender.run();
             vr.renderText(text, this.getX() + x, this.getY() + y, color);
         };
 
-        return this;
     }
 
-    public Renderable renderText(String text, double[] pos, Color color) {
-        return this.renderText(text, pos[0], pos[1], color);
+    public void renderText(String text, double[] pos, Color color) {
+        this.renderText(text, pos[0], pos[1], color);
     }
 
-    public Renderable fillArea(double startX, double startY, double endX, double endY, Color color) {
+    public void fillArea(double startX, double startY, double endX, double endY, Color color) {
         Runnable oldRender = render;
         render = () -> {
             oldRender.run();
             vr.fillRoundRect(this.getX() + startX, this.getY() + startY, this.getX() + endX, this.getY() + endY, color, 3);
         };
 
-        return this;
-    }
-
-    public void renderWithXY(int x, int y) {
-        this.x = x;
-        this.y = y;
-
-        this.render.run();
     }
 
     public void render() {
@@ -101,14 +84,13 @@ public class Renderable {
         this.vr = vr;
     }
 
-    public Renderable renderImage(int x, int y, int endX, int endY, CanvasImageSource image) {
+    public void renderImage(int x, int y, int endX, int endY, CanvasImageSource image) {
         Runnable oldRender = render;
         render = () -> {
             oldRender.run();
             vr.renderImage(this.getX() + x, this.getY() + y, this.getX() + endX, this.getY() + endY, image);
         };
 
-        return this;
     }
 
     public TextMetrics getMetrics(String str) {

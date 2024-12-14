@@ -36,7 +36,7 @@ public class Groupadle {
         //SOON
         /*HTMLImageElement img = (HTMLImageElement) HTMLDocument.current().createElement("img");
         img.setSrc("terminal.png");
-        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(TerminalApp::new), "Get Started", img))*/;
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(TerminalApp::new), "Get Started", img));*/
 
         HTMLBasedAppHelper.init();
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(HelloWorldApp::new), "Hello World!", new Image("helloworld.png").get()));
