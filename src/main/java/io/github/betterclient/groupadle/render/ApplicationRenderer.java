@@ -13,6 +13,10 @@ public class ApplicationRenderer {
             holdedApplication.renderer.x = Groupadle.getInstance().event.mouseX - holdPosX;
             holdedApplication.renderer.y = Groupadle.getInstance().event.mouseY - holdPosY;
         }
+        if (isSizingFromRight) {
+            sizeApp.setWidth(Math.max((int) (Groupadle.getInstance().event.mouseX - sizeApp.renderer.x), 100));
+            sizeApp.setHeight(Math.max((int) (Groupadle.getInstance().event.mouseY - sizeApp.renderer.y), 100));
+        }
 
         for (Application screenApplication : Groupadle.getInstance().screenApplications.reversed()) {
             renderer.setFont("15px Arial");
@@ -97,11 +101,13 @@ public class ApplicationRenderer {
 
     private boolean tryHandleTopBarClick(Application application, int x, int y, boolean isClicked) {
         if (isHoldingApplication && !isClicked) isHoldingApplication = false;
+        if (isSizingFromRight && !isClicked) isSizingFromRight = false;
+        if (application.renderer == null) return false;
 
         if (!UIRenderer.isPointInRectangle(x, y, application.renderer.x,
                 application.renderer.y - 20,
                 application.renderer.x + application.getWidth(), application.renderer.y)) {
-            return false;
+                return tryHandleSizing(application, x, y, isClicked);
         }
 
         double[] pos = new double[] {application.renderer.x, application.renderer.y - 20};
@@ -147,5 +153,24 @@ public class ApplicationRenderer {
         }
 
         return true;
+    }
+
+    boolean isSizingFromRight = false;
+    Application sizeApp = null;
+
+    private boolean tryHandleSizing(Application application, int x, int y, boolean isClicked) {
+        //only right allowed.
+        if (UIRenderer.isPointInRectangle(x, y,
+                application.renderer.x + application.getWidth() - 2,
+                application.renderer.y + application.getHeight() - 2,
+                application.renderer.x + application.getWidth() + 2,
+                application.renderer.y + application.getHeight() + 2)) {
+            //Bottom right
+            sizeApp = application;
+            isSizingFromRight = isClicked;
+            return true;
+        }
+
+        return false;
     }
 }
