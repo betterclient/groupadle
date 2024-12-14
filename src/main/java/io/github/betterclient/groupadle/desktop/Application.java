@@ -5,6 +5,7 @@ import org.teavm.jso.browser.Window;
 public abstract class Application {
     public Renderable renderer;
     public final String name;
+    public DesktopIcon icon;
     private int width, height;
 
     protected Application(String name, int width, int height) {
@@ -15,8 +16,23 @@ public abstract class Application {
 
     public abstract void render(double mouseX, double mouseY, double delta);
     public abstract void mouseClick(double mouseX, double mouseY, boolean isClicked);
-    public abstract void setWidth(int width);
-    public abstract void setHeight(int height);
+
+    public void close() {}
+    public void minimize() {}
+
+    public void setWidth(int width) {
+        this.setSize(
+                width,
+                getHeight()
+        );
+    }
+
+    public void setHeight(int height) {
+        this.setSize(
+                getWidth(),
+                height
+        );
+    }
 
     /**
      * Call this from either {@link Application#setWidth(int)} or {@link Application#setHeight(int)}
@@ -41,6 +57,15 @@ public abstract class Application {
         if (this.renderer == null) return false;
 
         return (x >= renderer.x && x <= renderer.x + renderer.getWidth()) && (y >= renderer.y && y <= renderer.y + renderer.getHeight());
+    }
+
+    public final boolean overlaps(Application other) {
+        if (this.renderer == null || other.renderer == null) return false;
+
+        return this.renderer.x + this.width > other.renderer.x &&
+                this.renderer.x < other.renderer.x + other.width &&
+                this.renderer.y + this.height > other.renderer.y &&
+                this.renderer.y < other.renderer.y + other.height;
     }
 
     public final int[] setPosition(AppPosition position) {

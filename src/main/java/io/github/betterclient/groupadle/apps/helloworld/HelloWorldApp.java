@@ -1,11 +1,11 @@
-package io.github.betterclient.groupadle.impl;
+package io.github.betterclient.groupadle.apps.helloworld;
 
 import io.github.betterclient.groupadle.desktop.Application;
 import io.github.betterclient.groupadle.util.render.Color;
 
-public class TerminalApp extends Application {
-    public TerminalApp() {
-        super("Terminal", 300, 300);
+public class HelloWorldApp extends Application {
+    public HelloWorldApp() {
+        super("HelloWorld!", 300, 300);
     }
 
     @Override
@@ -18,21 +18,5 @@ public class TerminalApp extends Application {
     @Override
     public void mouseClick(double mouseX, double mouseY, boolean isClicked) {
 
-    }
-
-    @Override
-    public void setWidth(int width) {
-        this.setSize(
-                width,
-                getHeight()
-        );
-    }
-
-    @Override
-    public void setHeight(int height) {
-        this.setSize(
-                getWidth(),
-                height
-        );
     }
 }

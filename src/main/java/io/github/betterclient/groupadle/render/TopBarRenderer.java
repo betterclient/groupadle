@@ -11,6 +11,10 @@ public class TopBarRenderer {
         renderer.fillRect(0, 0, renderer.getWidth(), 50, Color.TOPBAR_COLOR);
 
         this.renderTime(renderer);
+
+        renderer.setFont("30px Arial");
+        renderer.renderText("Groupadle OS V1", 10, 35, Color.WHITE);
+        renderer.setFont("15px Arial");
     }
 
     private void renderTime(UIRenderer renderer) {

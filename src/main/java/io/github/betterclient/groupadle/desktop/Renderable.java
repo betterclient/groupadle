@@ -2,6 +2,7 @@ package io.github.betterclient.groupadle.desktop;
 
 import io.github.betterclient.groupadle.util.render.Color;
 import io.github.betterclient.groupadle.util.render.UIRenderer;
+import org.teavm.jso.canvas.CanvasImageSource;
 import org.teavm.jso.canvas.TextMetrics;
 
 public class Renderable {
@@ -60,7 +61,7 @@ public class Renderable {
         return this;
     }
 
-    public Renderable renderText(String text, int[] pos, Color color) {
+    public Renderable renderText(String text, double[] pos, Color color) {
         return this.renderText(text, pos[0], pos[1], color);
     }
 
@@ -70,7 +71,6 @@ public class Renderable {
             oldRender.run();
             vr.fillRoundRect(this.getX() + startX, this.getY() + startY, this.getX() + endX, this.getY() + endY, color, 3);
         };
-
 
         return this;
     }
@@ -89,20 +89,25 @@ public class Renderable {
     public double[] getIdealRenderingPosForText(String w, double x1, double y1, double endX, double endY) {
         TextMetrics metrics = this.vr.getMetrics(w);
         double afterWidth = metrics.getWidth();
-        double afterHeight = metrics.getActualBoundingBoxAscent() + metrics.getActualBoundingBoxDescent();
+        double afterHeight = /*metrics.getActualBoundingBoxAscent() + */metrics.getActualBoundingBoxDescent();
 
         double tx = ((((endX - x1) / 2) - (afterWidth / 2)));
         double ty = ((((endY - y1) / 2) - (afterHeight / 2)));
 
-        double[] pos = new double[]{x1 + tx, y1 + ty};
-
-        pos[0] = pos[0] - this.getX();
-        pos[1] = pos[1] - this.getY();
-
-        return pos;
+        return new double[]{x1 + tx, y1 + ty};
     }
 
     public void setVr(UIRenderer vr) {
         this.vr = vr;
+    }
+
+    public Renderable renderImage(int x, int y, int endX, int endY, CanvasImageSource image) {
+        Runnable oldRender = render;
+        render = () -> {
+            oldRender.run();
+            vr.renderImage(this.getX() + x, this.getY() + y, this.getX() + endX, this.getY() + endY, image);
+        };
+
+        return this;
     }
 }

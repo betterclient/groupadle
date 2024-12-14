@@ -1,6 +1,4 @@
-import org.gradle.internal.impldep.com.google.common.io.Files
 import java.io.FileOutputStream
-import java.nio.file.StandardCopyOption
 import java.util.zip.ZipFile
 
 plugins {

@@ -23,14 +23,14 @@ public class DesktopRenderer {
 
         int startX = 70;
         int startY = 70;
+        renderer.setFont("15px Arial");
         for (int i = 0; i < groupadle.desktopIcons.size(); i++) {
             DesktopIcon icon = groupadle.desktopIcons.get(i);
 
             renderer.fillRoundRect(startX, startY, startX + 100, startY + 100, Color.APP_BACKGROUND_COLOR, 10f);
             renderer.renderImage(startX, startY, startX + 100, startY + 100, icon.icon());
 
-            renderer.setFont("15px Arial");
-            renderer.renderText(icon.name() + i, startX + 50 - (renderer.getMetrics(icon.name()).getWidth() / 2), startY + 110, Color.WHITE);
+            renderer.renderText(icon.name(), startX + 50 - (renderer.getMetrics(icon.name()).getWidth() / 2), startY + 110, Color.WHITE);
 
             if ((startX + 200) > renderer.getWidth()) {
                 startX = 70;
@@ -60,7 +60,7 @@ public class DesktopRenderer {
                     long time = lastAppClickTimes.get(app);
 
                     if (millis - time < 200) {
-                        groupadle.launch(app);
+                        groupadle.launch(icon);
                         lastAppClickTimes.remove(app);
                         icon.app().reset(); //reset the returned app
                     }

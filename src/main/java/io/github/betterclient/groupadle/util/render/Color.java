@@ -6,15 +6,21 @@ public class Color {
     public static final Color GREEN = new Color(0, 255, 0);
     public static final Color BLUE = new Color(0, 0, 255);
     public static final Color WHITE = new Color(255, 255, 255);
+    public static final Color BLACK = new Color(0, 0, 0);
 
     //-------------OS COLORS-------------
     public static final Color TASKBAR_COLOR = new Color(255, 255, 255, 120);
     public static final Color TOPBAR_COLOR = new Color(255, 255, 255, 100);
     public static final Color APP_BACKGROUND_COLOR = new Color(255, 255, 255, 75);
+
+    public static final Color FOCUSED_APPBAR_COLOR = new Color(255, 255, 255, 150);
     public static final Color APPBAR_COLOR = new Color(255, 255, 255, 130);
+
     public static final Color CLOSE_APP_COLOR = new Color(255, 80, 80);
     public static final Color MAXIMIZE_APP_COLOR = new Color(255, 188, 0);
     public static final Color MINIMIZE_APP_COLOR = new Color(0, 205, 32);
+
+    public static final Color BLACKISH_BLACK = new Color(0, 0, 0, 20);
 
     //-------------COLOR IMPLEMENTATION-------------
     private final int red, green, blue, alpha;

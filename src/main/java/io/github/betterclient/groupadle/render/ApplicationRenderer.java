@@ -15,6 +15,7 @@ public class ApplicationRenderer {
         }
 
         for (Application screenApplication : Groupadle.getInstance().screenApplications.reversed()) {
+            renderer.setFont("15px Arial");
             render(screenApplication, renderer, delta);
         }
     }
@@ -68,12 +69,12 @@ public class ApplicationRenderer {
                 application.renderer.x,
                 application.renderer.y - 20,
                 application.renderer.x + width, application.renderer.y,
-                Color.APPBAR_COLOR
+                application == Groupadle.getInstance().focusedApplication ? Color.FOCUSED_APPBAR_COLOR : Color.APPBAR_COLOR
         );
 
         //Name
         double[] str = application.renderer.getIdealRenderingPosForText(application.name, application.renderer.x, application.renderer.y - 20, application.renderer.x + width, application.renderer.y);
-        renderer.renderText(application.name, str[0] + application.renderer.getX() - 10, str[1] + application.renderer.getY() + 10, Color.WHITE);
+        renderer.renderText(application.name, str[0] - 10, str[1] + 5, Color.WHITE);
 
         //Buttons
         double[] pos = new double[] {application.renderer.x, application.renderer.y - 20};
@@ -82,10 +83,12 @@ public class ApplicationRenderer {
         renderer.drawCircle(pos[0] + 60, pos[1] + 10, 4f, Color.MINIMIZE_APP_COLOR);
     }
 
-    public void click(int x, int y, boolean isClicked) {
+    public boolean click(int x, int y, boolean isClicked) {
         for (Application screenApplication : Groupadle.getInstance().screenApplications.reversed()) {
-            if(tryHandleTopBarClick(screenApplication, x, y, isClicked)) return;
+            if(tryHandleTopBarClick(screenApplication, x, y, isClicked)) return true;
         }
+
+        return false;
     }
 
     public boolean isHoldingApplication = false;
@@ -118,6 +121,7 @@ public class ApplicationRenderer {
             if (!isClicked) Groupadle.getInstance().minimize(application);
 
         } else {
+            Groupadle.getInstance().focus(application);
             if (Groupadle.getInstance().isFocusedMap.containsKey(application)) {
                 //Hold with old position
                 isHoldingApplication = isClicked;

@@ -1,15 +1,17 @@
 package io.github.betterclient.groupadle;
 
+import io.github.betterclient.groupadle.util.HTMLBasedAppHelper;
+import io.github.betterclient.groupadle.apps.imageviewer.ImageViewer;
 import io.github.betterclient.groupadle.desktop.Application;
 import io.github.betterclient.groupadle.desktop.DesktopIcon;
 import io.github.betterclient.groupadle.event.EventManager;
-import io.github.betterclient.groupadle.impl.TerminalApp;
+import io.github.betterclient.groupadle.apps.browser.BrowserApp;
+import io.github.betterclient.groupadle.apps.helloworld.HelloWorldApp;
 import io.github.betterclient.groupadle.render.*;
+import io.github.betterclient.groupadle.util.Image;
 import io.github.betterclient.groupadle.util.OutputReset;
 import org.teavm.jso.browser.Window;
 import org.teavm.jso.canvas.CanvasImageSource;
-import org.teavm.jso.dom.html.HTMLDocument;
-import org.teavm.jso.dom.html.HTMLImageElement;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -31,19 +33,21 @@ public class Groupadle {
         this.desktopIcons = new ArrayList<>();
         this.event = new EventManager();
 
-        //web
-        HTMLImageElement img = (HTMLImageElement) HTMLDocument.current().createElement("img");
+        //SOON
+        /*HTMLImageElement img = (HTMLImageElement) HTMLDocument.current().createElement("img");
         img.setSrc("terminal.png");
-        DesktopIcon icon = new DesktopIcon(new OutputReset<>(TerminalApp::new), "Get Started", img);
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(TerminalApp::new), "Get Started", img))*/;
 
-        this.desktopIcons.add(icon);
+        HTMLBasedAppHelper.init();
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(HelloWorldApp::new), "Hello World!", new Image("helloworld.png").get()));
+        //this.desktopIcons.add(new DesktopIcon(new OutputReset<>(SettingsApp::new), "Settings!", new Image("settings.png").get()));
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(BrowserApp::new), "Browser", new Image("browser.png").get()));
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(ImageViewer::new), "Image Viewer", new Image("imageviewer.png").get()));
     }
 
     private CanvasImageSource getOrCreateBackgroundImage() {
-        HTMLImageElement imageEl = (HTMLImageElement) HTMLDocument.current().createElement("img");
-
         String image = Window.current().getLocalStorage().getItem("background");
-        if (image == null || image.isEmpty()) {
+        if (image == null || image.isEmpty() || image.equals("undefined")) {
             //Create
             try {
                 @SuppressWarnings("deprecation") //no
@@ -51,6 +55,7 @@ public class Groupadle {
                 InputStream stream = url.openConnection().getInputStream();
                 image = Base64.getEncoder().encodeToString(stream.readAllBytes());
                 stream.close();
+                image = "data:image/png;base64," + image;
 
                 Window.current().getLocalStorage().setItem("background", image);
             } catch (Exception e) {
@@ -58,8 +63,7 @@ public class Groupadle {
             }
         }
 
-        imageEl.setSrc("data:image/png;base64," + image);
-        return imageEl;
+        return new Image(image).get();
     }
 
     public static Groupadle create() {
@@ -71,11 +75,13 @@ public class Groupadle {
     }
 
     public void handleClick(int x, int y, boolean isClicked) {
+        if (this.renderer.mainRenderer().click(x, y, isClicked)) return;
+
         for (Application screenApplication : screenApplications) {
             if (screenApplication.check(x, y)) {
                 if (focusedApplication == null) {
                     if (isClicked)
-                        focusedApplication = screenApplication;
+                        this.focus(screenApplication);
                 } else {
                     if (focusedApplication.equals(screenApplication)) {
                         if (focusedApplication.renderer == null) return;
@@ -83,14 +89,12 @@ public class Groupadle {
                         focusedApplication.mouseClick(x - focusedApplication.renderer.x, y - focusedApplication.renderer.y, isClicked);
                     } else {
                         if (isClicked)
-                            focusedApplication = screenApplication;
+                            this.focus(screenApplication);
                     }
                 }
                 return;
             }
         }
-
-        this.renderer.mainRenderer().click(x, y, isClicked);
     }
 
     /**
@@ -118,13 +122,24 @@ public class Groupadle {
     public Map<Application, double[]> isFocusedMap = new HashMap<>();
 
     //-------------------------------------------APP UTILS-------------------------------------------
-    public void launch(Application app) {
-        this.applications.add(app);
-        this.screenApplications.addFirst(app);
-        this.focusedApplication = app;
+    public void launch(DesktopIcon icon) {
+        Application instance1 = icon.app().getInstance();
+
+        instance1.icon = icon;
+
+        this.applications.add(instance1);
+        this.screenApplications.addFirst(instance1);
+        this.focusedApplication = instance1;
+    }
+
+    public void focus(Application application) {
+        this.focusedApplication = application;
+        this.screenApplications.remove(application);
+        this.screenApplications.addFirst(application);
     }
 
     public void close(Application app) {
+        app.close();
         this.applications.remove(app);
         this.screenApplications.remove(app);
 
@@ -164,11 +179,33 @@ public class Groupadle {
     }
 
     public void minimize(Application application) {
+        application.minimize();
         this.screenApplications.remove(application);
         this.minimizedApplications.add(application);
 
         if (this.focusedApplication == application) {
             this.focusedApplication = null;
         }
+    }
+
+    /**
+     * Check if anything obstructs the rectangle of the app given
+     * @param app app given
+     * @return if anything is obstructed
+     */
+    public boolean checkRectangle(Application app) {
+        if (!this.screenApplications.contains(app)) return true;
+        if (this.screenApplications.getFirst().equals(app)) return false;
+
+        for (Application application : this.screenApplications) {
+            if (application.equals(app)) return false;
+
+            if (app.overlaps(application)) {
+                return true;
+            }
+        }
+
+        //Impossible to reach (btw)
+        return false;
     }
 }
