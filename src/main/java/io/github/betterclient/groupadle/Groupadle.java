@@ -1,6 +1,7 @@
 package io.github.betterclient.groupadle;
 
 import io.github.betterclient.groupadle.apps.calculator.CalculatorApp;
+import io.github.betterclient.groupadle.apps.dvd.DVDApp;
 import io.github.betterclient.groupadle.apps.snake.SnakeGameApp;
 import io.github.betterclient.groupadle.util.HTMLBasedAppHelper;
 import io.github.betterclient.groupadle.apps.imageviewer.ImageViewerApp;
@@ -47,8 +48,7 @@ public class Groupadle {
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(ImageViewerApp::new), "Image Viewer", new Image("imageviewer.png").get()));
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(CalculatorApp::new), "Calculator", new Image("calculator.png").get()));
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(SnakeGameApp::new), "Snake", new Image("snake.png").get()));
-
-        this.launch(this.desktopIcons.getLast());
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(DVDApp::new), "DVD", new Image("dvd.png").get()));
     }
 
     private CanvasImageSource getOrCreateBackgroundImage() {
