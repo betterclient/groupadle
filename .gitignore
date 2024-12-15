@@ -11,7 +11,7 @@ run/
 *.iws
 *.iml
 *.ipr
-out/
+out/groupadle.js
 !**/src/main/**/out/
 !**/src/test/**/out/
 
