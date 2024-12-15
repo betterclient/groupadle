@@ -28,6 +28,11 @@ public class BrowserApp extends Application {
         this.renderer.fillArea(10, 20, getWidth() - 10, getHeight() - 10, Color.BLACK);
         this.renderer.renderText("Because of Cross-origin resource sharing, only some websites are allowed.", 10, 12, Color.BLACK);
 
+        this.renderer.fillArea(getWidth() - 370, 2, getWidth() - 260, 18, Color.BLACKISH_BLACK);
+        this.renderer.renderText("Wikipedia", this.renderer.getIdealRenderingPosForText(
+                "Wikipedia", getWidth() - 370, 12, getWidth() - 260, 18
+        ), Color.RED);
+
         this.renderer.fillArea(getWidth() - 250, 2, getWidth() - 140, 18, Color.BLACKISH_BLACK);
         this.renderer.renderText("Z-- Compiler", this.renderer.getIdealRenderingPosForText(
                 "Z-- Compiler", getWidth() - 250, 12, getWidth() - 140, 18
@@ -57,6 +62,9 @@ public class BrowserApp extends Application {
         } else if (UIRenderer.isPointInRectangle(mouseX, mouseY, getWidth() - 250, 2, getWidth() - 140, 18)) {
             //Z--
             myFrame.setSourceAddress("https://betterclient.github.io/z--");
+        } else if (UIRenderer.isPointInRectangle(mouseX, mouseY, getWidth() - 370, 2, getWidth() - 260, 18)) {
+            //Wikipedia
+            myFrame.setSourceAddress("https://www.wikipedia.org");
         }
     }
 

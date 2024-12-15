@@ -23,18 +23,17 @@ public class TaskbarRenderer {
         }
     }
 
-    public boolean click(int x, int y) {
+    public void click(int x, int y) {
         int curY = 80;
         Groupadle groupadle = Groupadle.getInstance();
         for (Application application : groupadle.applications) {
             if (curY > Window.current().getInnerHeight()) break;
             if (UIRenderer.isPointInRectangle(x, y, 20, curY, 50, curY + 30)) {
                 groupadle.focus(application);
-                return true;
+                return;
             }
 
             curY += 40;
         }
-        return false;
     }
 }

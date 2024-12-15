@@ -5,6 +5,7 @@ import org.teavm.jso.core.JSPromise;
 
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public class BackgroundSelectionHandler {
     public static void start(Consumer<String> returnValueHandler) {
         //huzz the buzz

@@ -64,7 +64,7 @@ public class Renderable {
         };
     }
 
-    public void fillArea(double startX, double startY, double endX, double endY, Color color, boolean wg) {
+    public void fillAreaWH(double startX, double startY, double endX, double endY, Color color) {
         Runnable oldRender = render;
         render = () -> {
             oldRender.run();

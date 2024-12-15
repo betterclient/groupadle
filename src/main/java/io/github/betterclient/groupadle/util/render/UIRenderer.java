@@ -100,7 +100,7 @@ public class UIRenderer {
         return (mouseX >= x && mouseX <= endX) && (mouseY >= y && mouseY <= endY);
     }
 
-    public static boolean isPointInRectangle(double mouseX, double mouseY, double x, double y, double width, double height, boolean wh) {
+    public static boolean isPointInRectangleWH(double mouseX, double mouseY, double x, double y, double width, double height) {
         double endX = x + width;
         double endY = y + height;
         return (mouseX >= x && mouseX <= endX) && (mouseY >= y && mouseY <= endY);

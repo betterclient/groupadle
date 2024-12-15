@@ -1,7 +1,6 @@
 package io.github.betterclient.groupadle.render;
 
 import io.github.betterclient.groupadle.Groupadle;
-import io.github.betterclient.groupadle.desktop.AppPosition;
 import io.github.betterclient.groupadle.desktop.Application;
 import io.github.betterclient.groupadle.desktop.Renderable;
 import io.github.betterclient.groupadle.util.render.Color;
@@ -30,7 +29,7 @@ public class ApplicationRenderer {
         int height = application.getHeight();
         if (application.renderer == null) {
             application.renderer = new Renderable(renderer, 0, 0, width, height);
-            int[] pos = application.setPosition(AppPosition.CENTER);
+            int[] pos = application.setPosition();
             application.renderer.x = pos[0];
             application.renderer.y = pos[1];
         } else {

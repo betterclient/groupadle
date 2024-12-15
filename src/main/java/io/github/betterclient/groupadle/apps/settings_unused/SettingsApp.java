@@ -1,9 +1,10 @@
-/*package io.github.betterclient.groupadle.impl;
+package io.github.betterclient.groupadle.apps.settings_unused;
 
 import io.github.betterclient.groupadle.desktop.Application;
 import io.github.betterclient.groupadle.util.render.Color;
 import io.github.betterclient.groupadle.util.render.UIRenderer;
 
+@SuppressWarnings("unused")
 public class SettingsApp extends Application {
     public SettingsApp() {
         super("Settings", 600, 300);
@@ -20,10 +21,10 @@ public class SettingsApp extends Application {
     }
 
     @Override
+    @SuppressWarnings("all")
     public void mouseClick(double mouseX, double mouseY, boolean isClicked) {
         if (UIRenderer.isPointInRectangle(mouseX, mouseY, 10, 10, 300, 30) && !isClicked) {
 
         }
     }
 }
-*/

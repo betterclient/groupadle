@@ -49,22 +49,22 @@ public class SnakeGameApp extends Application {
                 Color.BLACK
         );
 
-        this.renderer.fillArea(60, 10, 40, 40, Color.BLACK, true);
-        this.renderer.fillArea(10, 60, 40, 40, Color.BLACK, true);
-        this.renderer.fillArea(60, 60, 40, 40, Color.BLACK, true);
-        this.renderer.fillArea(110, 60, 40, 40, Color.BLACK, true);
+        this.renderer.fillAreaWH(60, 10, 40, 40, Color.BLACK);
+        this.renderer.fillAreaWH(10, 60, 40, 40, Color.BLACK);
+        this.renderer.fillAreaWH(60, 60, 40, 40, Color.BLACK);
+        this.renderer.fillAreaWH(110, 60, 40, 40, Color.BLACK);
 
         //Game render
 
         for (SnakePoint snakePoint : snake) {
             if (snakePoint.equals(snake.getFirst())) {
-                this.renderer.fillArea(10 + snakePoint.x * tileSize, 100 + snakePoint.y * tileSize, tileSize, tileSize, Color.BLUE, true);
+                this.renderer.fillAreaWH(10 + snakePoint.x * tileSize, 100 + snakePoint.y * tileSize, tileSize, tileSize, Color.BLUE);
             } else {
-                this.renderer.fillArea(10 + snakePoint.x * tileSize, 100 + snakePoint.y * tileSize, tileSize, tileSize, Color.GREEN, true);
+                this.renderer.fillAreaWH(10 + snakePoint.x * tileSize, 100 + snakePoint.y * tileSize, tileSize, tileSize, Color.GREEN);
             }
         }
 
-        this.renderer.fillArea(10 + food.x * tileSize, 100 + food.y * tileSize, tileSize, tileSize, Color.RED, true);
+        this.renderer.fillAreaWH(10 + food.x * tileSize, 100 + food.y * tileSize, tileSize, tileSize, Color.RED);
     }
 
     public void moveSnake() {
@@ -110,19 +110,19 @@ public class SnakeGameApp extends Application {
 
     @Override
     public void mouseClick(double mouseX, double mouseY, boolean isClicked) {
-        if (UIRenderer.isPointInRectangle(mouseX, mouseY, 60, 10, 40, 40, true)) {
+        if (UIRenderer.isPointInRectangleWH(mouseX, mouseY, 60, 10, 40, 40)) {
             currentDir.set(Direction.UP);
         }
 
-        if (UIRenderer.isPointInRectangle(mouseX, mouseY, 10, 60, 40, 40, true)) {
+        if (UIRenderer.isPointInRectangleWH(mouseX, mouseY, 10, 60, 40, 40)) {
             currentDir.set(Direction.LEFT);
         }
 
-        if (UIRenderer.isPointInRectangle(mouseX, mouseY, 60, 60, 40, 40, true)) {
+        if (UIRenderer.isPointInRectangleWH(mouseX, mouseY, 60, 60, 40, 40)) {
             currentDir.set(Direction.DOWN);
         }
 
-        if (UIRenderer.isPointInRectangle(mouseX, mouseY, 110, 60, 40, 40, true)) {
+        if (UIRenderer.isPointInRectangleWH(mouseX, mouseY, 110, 60, 40, 40)) {
             currentDir.set(Direction.RIGHT);
         }
     }

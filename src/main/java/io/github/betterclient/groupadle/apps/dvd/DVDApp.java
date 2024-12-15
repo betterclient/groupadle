@@ -13,7 +13,7 @@ public class DVDApp extends Application {
     public int dMotX = 2, dMotY = 2;
     public int dwidth = 100;
     public int dheight = 100;
-    private Timer tiemr = new Timer();
+    private final Timer tiemr = new Timer();
 
     public DVDApp() {
         super("DVD", 500, 500);

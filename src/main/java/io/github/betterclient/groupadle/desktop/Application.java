@@ -40,7 +40,7 @@ public abstract class Application {
      * @param width width
      * @param height height
      */
-    protected void setSize(int width, int height) {
+    protected final void setSize(int width, int height) {
         this.width = width;
         this.height = height;
 
@@ -71,23 +71,7 @@ public abstract class Application {
                 this.renderer.y < other.renderer.y + other.height;
     }
 
-    public final int[] setPosition(AppPosition position) {
-        int[] pos;
-        int guiWidth = Window.current().getInnerWidth();
-        int guiHeight = Window.current().getInnerHeight();
-        switch (position) {
-            case CENTER -> pos = new int[]{(guiWidth / 2) - (width / 2), (guiHeight / 2) - (height / 2)};
-            case CENTER_LEFT -> pos = new int[]{0, (guiHeight / 2) - (height / 2)};
-            case CENTER_RIGHT -> pos = new int[]{guiWidth - width, (guiHeight / 2) - (height / 2)};
-            case CENTER_TOP -> pos = new int[]{(guiWidth / 2) - (width / 2), 0};
-            case CENTER_BOTTOM -> pos = new int[]{(guiWidth / 2) - (width / 2), guiHeight - height};
-            case TOP_LEFT -> pos = new int[]{0, 0};
-            case TOP_RIGHT -> pos = new int[]{guiWidth - width, 0};
-            case BOTTOM_LEFT -> pos = new int[]{0, guiHeight - height};
-            case BOTTOM_RIGHT -> pos = new int[]{guiWidth - width, guiHeight - height};
-            default -> throw new IllegalStateException("null or new position.");
-        }
-
-        return pos;
+    public final int[] setPosition() {
+        return new int[]{(Window.current().getInnerWidth() / 2) - (width / 2), (Window.current().getInnerHeight() / 2) - (height / 2)};
     }
 }

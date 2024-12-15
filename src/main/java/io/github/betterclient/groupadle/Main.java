@@ -3,7 +3,6 @@ package io.github.betterclient.groupadle;
 import io.github.betterclient.groupadle.util.render.UIRenderer;
 import org.teavm.jso.browser.AnimationFrameCallback;
 import org.teavm.jso.browser.Window;
-import org.teavm.jso.dom.events.MouseEvent;
 import org.teavm.jso.dom.html.HTMLCanvasElement;
 import org.teavm.jso.dom.html.HTMLDocument;
 
