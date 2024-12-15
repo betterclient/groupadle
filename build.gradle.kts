@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "io.github.betterclient"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -23,14 +23,14 @@ teavm.js {
     mainClass = "io.github.betterclient.groupadle.Main"
 
     targetFileName = "groupadle.js"
-    obfuscated = false
+    obfuscated = true
 
     properties.put("java.util.TimeZone.autodetect", "true")
 }
 
 var extract = task("extract") {
     doLast {
-        val jf = ZipFile(file("build/libs/GroupadleOS-1.0-SNAPSHOT.war"))
+        val jf = ZipFile(file("build/libs/GroupadleOS-1.0.war"))
         val entries = jf.stream().toList()
         for (entry in entries) {
             if (entry.name == "js/groupadle.js") {
