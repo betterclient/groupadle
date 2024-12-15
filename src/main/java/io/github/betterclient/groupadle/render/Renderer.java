@@ -24,12 +24,13 @@ public class Renderer {
         holder.appRenderer().render(renderer, delta);
     }
 
-    public boolean click(int x, int y, boolean isClicked) {
+    public void click(int x, int y, boolean isClicked) {
         RenderHolder holder = Groupadle.getInstance().renderer;
 
-        if (holder.appRenderer().click(x, y, isClicked)) return true;
-        if (holder.desktopRenderer().click(x, y, isClicked)) return true;
+        if (holder.appRenderer().click(x, y, isClicked)) return;
+        if (holder.appRenderer().click0(x, y, isClicked)) return;
+        if (holder.desktopRenderer().click(x, y, isClicked)) return;
 
-        return holder.taskbarRenderer().click(x, y);
+        holder.taskbarRenderer().click(x, y);
     }
 }

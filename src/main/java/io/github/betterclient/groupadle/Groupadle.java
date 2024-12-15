@@ -1,6 +1,7 @@
 package io.github.betterclient.groupadle;
 
 import io.github.betterclient.groupadle.apps.calculator.CalculatorApp;
+import io.github.betterclient.groupadle.apps.snake.SnakeGameApp;
 import io.github.betterclient.groupadle.util.HTMLBasedAppHelper;
 import io.github.betterclient.groupadle.apps.imageviewer.ImageViewerApp;
 import io.github.betterclient.groupadle.desktop.Application;
@@ -45,6 +46,9 @@ public class Groupadle {
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(BrowserApp::new), "Browser", new Image("browser.png").get()));
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(ImageViewerApp::new), "Image Viewer", new Image("imageviewer.png").get()));
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(CalculatorApp::new), "Calculator", new Image("calculator.png").get()));
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(SnakeGameApp::new), "Snake", new Image("snake.png").get()));
+
+        this.launch(this.desktopIcons.getLast());
     }
 
     private CanvasImageSource getOrCreateBackgroundImage() {
@@ -77,26 +81,7 @@ public class Groupadle {
     }
 
     public void handleClick(int x, int y, boolean isClicked) {
-        if (this.renderer.mainRenderer().click(x, y, isClicked)) return;
-
-        for (Application screenApplication : screenApplications) {
-            if (screenApplication.check(x, y)) {
-                if (focusedApplication == null) {
-                    if (isClicked)
-                        this.focus(screenApplication);
-                } else {
-                    if (focusedApplication.equals(screenApplication)) {
-                        if (focusedApplication.renderer == null) return;
-
-                        focusedApplication.mouseClick(x - focusedApplication.renderer.x, y - focusedApplication.renderer.y, isClicked);
-                    } else {
-                        if (isClicked)
-                            this.focus(screenApplication);
-                    }
-                }
-                return;
-            }
-        }
+        this.renderer.mainRenderer().click(x, y, isClicked);
     }
 
     /**

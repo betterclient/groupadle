@@ -62,6 +62,14 @@ public class Renderable {
             oldRender.run();
             vr.fillRoundRect(this.getX() + startX, this.getY() + startY, this.getX() + endX, this.getY() + endY, color, 3);
         };
+    }
+
+    public void fillArea(double startX, double startY, double endX, double endY, Color color, boolean wg) {
+        Runnable oldRender = render;
+        render = () -> {
+            oldRender.run();
+            vr.fillRoundRect(this.getX() + startX, this.getY() + startY, this.getX() + endX + startX, this.getY() + endY + startY, color, 3);
+        };
 
     }
 

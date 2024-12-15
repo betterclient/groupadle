@@ -150,9 +150,10 @@ public class ApplicationRenderer {
                 holdPosY = y - application.renderer.y;
                 holdedApplication = application;
             }
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     boolean isSizingFromRight = false;
@@ -169,6 +170,31 @@ public class ApplicationRenderer {
             sizeApp = application;
             isSizingFromRight = isClicked;
             return true;
+        }
+
+        return false;
+    }
+
+    public boolean click0(int x, int y, boolean isClicked) {
+        Groupadle groupadle = Groupadle.getInstance();
+
+        for (Application screenApplication : groupadle.screenApplications) {
+            if (screenApplication.check(x, y)) {
+                if (groupadle.focusedApplication == null) {
+                    if (isClicked)
+                        groupadle.focus(screenApplication);
+                } else {
+                    if (groupadle.focusedApplication.equals(screenApplication)) {
+                        if (groupadle.focusedApplication.renderer == null) return true;
+
+                        groupadle.focusedApplication.mouseClick(x - groupadle.focusedApplication.renderer.x, y - groupadle.focusedApplication.renderer.y, isClicked);
+                    } else {
+                        if (isClicked)
+                            groupadle.focus(screenApplication);
+                    }
+                }
+                return true;
+            }
         }
 
         return false;

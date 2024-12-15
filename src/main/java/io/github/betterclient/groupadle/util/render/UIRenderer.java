@@ -56,8 +56,8 @@ public class UIRenderer {
     }
 
     //--------------ACTUAL IMPLEMENTATIONS--------------
-    private boolean isEnabled = false;
 
+    private boolean isEnabled = false;
     public void fillRect(double x, double y, double endX, double endY, Color color) {
         this.setColor(color);
         this.context2D.fillRect(x, y, endX - x, endY - y);
@@ -97,6 +97,12 @@ public class UIRenderer {
     }
 
     public static boolean isPointInRectangle(double mouseX, double mouseY, double x, double y, double endX, double endY) {
+        return (mouseX >= x && mouseX <= endX) && (mouseY >= y && mouseY <= endY);
+    }
+
+    public static boolean isPointInRectangle(double mouseX, double mouseY, double x, double y, double width, double height, boolean wh) {
+        double endX = x + width;
+        double endY = y + height;
         return (mouseX >= x && mouseX <= endX) && (mouseY >= y && mouseY <= endY);
     }
 
