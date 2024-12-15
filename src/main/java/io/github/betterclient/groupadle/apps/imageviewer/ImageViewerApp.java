@@ -8,11 +8,11 @@ import org.teavm.jso.dom.html.HTMLBodyElement;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLInputElement;
 
-public class ImageViewer extends Application {
+public class ImageViewerApp extends Application {
     public HTMLInputElement inputElement;
     public HTMLBodyElement body;
 
-    public ImageViewer() {
+    public ImageViewerApp() {
         super("Image Viewer", 600, 600);
         inputElement = (HTMLInputElement) HTMLDocument.current().createElement("input");
         inputElement.setType("text");

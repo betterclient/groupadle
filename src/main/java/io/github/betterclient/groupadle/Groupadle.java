@@ -1,7 +1,8 @@
 package io.github.betterclient.groupadle;
 
+import io.github.betterclient.groupadle.apps.calculator.CalculatorApp;
 import io.github.betterclient.groupadle.util.HTMLBasedAppHelper;
-import io.github.betterclient.groupadle.apps.imageviewer.ImageViewer;
+import io.github.betterclient.groupadle.apps.imageviewer.ImageViewerApp;
 import io.github.betterclient.groupadle.desktop.Application;
 import io.github.betterclient.groupadle.desktop.DesktopIcon;
 import io.github.betterclient.groupadle.event.EventManager;
@@ -42,7 +43,8 @@ public class Groupadle {
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(HelloWorldApp::new), "Hello World!", new Image("helloworld.png").get()));
         //this.desktopIcons.add(new DesktopIcon(new OutputReset<>(SettingsApp::new), "Settings!", new Image("settings.png").get()));
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(BrowserApp::new), "Browser", new Image("browser.png").get()));
-        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(ImageViewer::new), "Image Viewer", new Image("imageviewer.png").get()));
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(ImageViewerApp::new), "Image Viewer", new Image("imageviewer.png").get()));
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(CalculatorApp::new), "Calculator", new Image("calculator.png").get()));
     }
 
     private CanvasImageSource getOrCreateBackgroundImage() {

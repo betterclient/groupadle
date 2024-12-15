@@ -96,4 +96,8 @@ public class Renderable {
     public TextMetrics getMetrics(String str) {
         return this.vr.getMetrics(str);
     }
+
+    public void setSize(String s) {
+        this.vr.setFont(s);
+    }
 }
