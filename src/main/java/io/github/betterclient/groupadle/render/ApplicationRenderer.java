@@ -87,7 +87,7 @@ public class ApplicationRenderer {
     }
 
     public boolean click(int x, int y, boolean isClicked) {
-        for (Application screenApplication : Groupadle.getInstance().screenApplications.reversed()) {
+        for (Application screenApplication : Groupadle.getInstance().screenApplications) {
             if(tryHandleTopBarClick(screenApplication, x, y, isClicked)) return true;
         }
 

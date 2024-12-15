@@ -13,7 +13,7 @@ public class TopBarRenderer {
         this.renderTime(renderer);
 
         renderer.setFont("30px Arial");
-        renderer.renderText("Groupadle OS V1", 10, 35, Color.WHITE);
+        renderer.renderText("Groupadle WebOS V1", 10, 35, Color.WHITE);
         renderer.setFont("15px Arial");
     }
 

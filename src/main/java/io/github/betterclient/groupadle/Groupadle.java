@@ -2,6 +2,7 @@ package io.github.betterclient.groupadle;
 
 import io.github.betterclient.groupadle.apps.calculator.CalculatorApp;
 import io.github.betterclient.groupadle.apps.dvd.DVDApp;
+import io.github.betterclient.groupadle.apps.info.InfoApp;
 import io.github.betterclient.groupadle.apps.snake.SnakeGameApp;
 import io.github.betterclient.groupadle.util.HTMLBasedAppHelper;
 import io.github.betterclient.groupadle.apps.imageviewer.ImageViewerApp;
@@ -37,11 +38,10 @@ public class Groupadle {
         this.event = new EventManager();
 
         //SOON
-        /*HTMLImageElement img = (HTMLImageElement) HTMLDocument.current().createElement("img");
-        img.setSrc("terminal.png");
-        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(TerminalApp::new), "Get Started", img));*/
+        //this.desktopIcons.add(new DesktopIcon(new OutputReset<>(TerminalApp::new), "Get Started", new Image("terminal.png")));
 
         HTMLBasedAppHelper.init();
+        this.desktopIcons.add(new DesktopIcon(new OutputReset<>(InfoApp::new), "Info", new Image("info.png").get()));
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(HelloWorldApp::new), "Hello World!", new Image("helloworld.png").get()));
         //this.desktopIcons.add(new DesktopIcon(new OutputReset<>(SettingsApp::new), "Settings!", new Image("settings.png").get()));
         this.desktopIcons.add(new DesktopIcon(new OutputReset<>(BrowserApp::new), "Browser", new Image("browser.png").get()));

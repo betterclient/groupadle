@@ -20,7 +20,7 @@ public class Color {
     public static final Color MAXIMIZE_APP_COLOR = new Color(255, 188, 0);
     public static final Color MINIMIZE_APP_COLOR = new Color(0, 205, 32);
 
-    public static final Color BLACKISH_BLACK = new Color(0, 0, 0, 20);
+    public static final Color BLACKISH_BLACK = new Color(0, 0, 0, 20); //Most creative color name
 
     //-------------COLOR IMPLEMENTATION-------------
     private final int red, green, blue, alpha;

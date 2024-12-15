@@ -106,6 +106,10 @@ public class Renderable {
     }
 
     public void setSize(String s) {
-        this.vr.setFont(s);
+        Runnable old = render;
+        render = () -> {
+            old.run();
+            this.vr.setFont(s);
+        };
     }
 }
