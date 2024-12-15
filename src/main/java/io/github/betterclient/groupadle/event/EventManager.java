@@ -1,6 +1,7 @@
 package io.github.betterclient.groupadle.event;
 
 import io.github.betterclient.groupadle.Groupadle;
+import org.teavm.jso.dom.events.KeyboardEvent;
 import org.teavm.jso.dom.events.MouseEvent;
 import org.teavm.jso.dom.html.HTMLDocument;
 
@@ -29,6 +30,14 @@ public class EventManager {
 
             this.mouseX = event.getClientX();
             this.mouseY = event.getClientY();
+        });
+
+        HTMLDocument.current().addEventListener("keypress", evt -> {
+            KeyboardEvent event = (KeyboardEvent) evt;
+
+            if (Groupadle.getInstance().focusedApplication != null) {
+                Groupadle.getInstance().focusedApplication.keyboard(event.getCharCode());
+            }
         });
     }
 }

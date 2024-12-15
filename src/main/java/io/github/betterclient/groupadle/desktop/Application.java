@@ -15,9 +15,11 @@ public abstract class Application {
     }
 
     public abstract void render(double mouseX, double mouseY, double delta);
-    public abstract void mouseClick(double mouseX, double mouseY, boolean isClicked);
+    public void mouseClick(double mouseX, double mouseY, boolean isClicked) {}
+    public void keyboard(int charCode) {}
 
     public void close() {}
+
     public void minimize() {}
 
     public void setWidth(int width) {

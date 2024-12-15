@@ -49,9 +49,6 @@ public class ImageViewerApp extends Application {
     }
 
     @Override
-    public void mouseClick(double mouseX, double mouseY, boolean isClicked) {}
-
-    @Override
     public void close() {
         if (HTMLBasedAppHelper.checkNode(inputElement)) body.removeChild(inputElement);
     }

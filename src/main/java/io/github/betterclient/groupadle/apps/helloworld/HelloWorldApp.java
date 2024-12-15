@@ -14,9 +14,4 @@ public class HelloWorldApp extends Application {
 
         this.renderer.renderText("Hello world!", mouseX, mouseY, Color.WHITE);
     }
-
-    @Override
-    public void mouseClick(double mouseX, double mouseY, boolean isClicked) {
-
-    }
 }

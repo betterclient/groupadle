@@ -46,9 +46,6 @@ public class DVDApp extends Application {
     }
 
     @Override
-    public void mouseClick(double mouseX, double mouseY, boolean isClicked) {}
-
-    @Override
     public void close() {
         tiemr.cancel();
     }

@@ -112,18 +112,46 @@ public class SnakeGameApp extends Application {
     public void mouseClick(double mouseX, double mouseY, boolean isClicked) {
         if (UIRenderer.isPointInRectangleWH(mouseX, mouseY, 60, 10, 40, 40)) {
             currentDir.set(Direction.UP);
+            moveSnake();
         }
 
         if (UIRenderer.isPointInRectangleWH(mouseX, mouseY, 10, 60, 40, 40)) {
             currentDir.set(Direction.LEFT);
+            moveSnake();
         }
 
         if (UIRenderer.isPointInRectangleWH(mouseX, mouseY, 60, 60, 40, 40)) {
             currentDir.set(Direction.DOWN);
+            moveSnake();
         }
 
         if (UIRenderer.isPointInRectangleWH(mouseX, mouseY, 110, 60, 40, 40)) {
             currentDir.set(Direction.RIGHT);
+            moveSnake();
+        }
+    }
+
+    @Override
+    public void keyboard(int charCode) {
+        switch (charCode) {
+            case 119:
+                currentDir.set(Direction.UP);
+                moveSnake();
+                break;
+            case 115:
+                currentDir.set(Direction.DOWN);
+                moveSnake();
+                break;
+            case 97:
+                currentDir.set(Direction.LEFT);
+                moveSnake();
+                break;
+            case 100:
+                currentDir.set(Direction.RIGHT);
+                moveSnake();
+                break;
+            default:
+                break;
         }
     }
 
@@ -142,6 +170,7 @@ public class SnakeGameApp extends Application {
             return false;
         }
     }
+
     public enum Direction {
         RIGHT, UP, DOWN, LEFT
     }
